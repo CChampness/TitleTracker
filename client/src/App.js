@@ -12,6 +12,7 @@ import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 import LoginForm from './components/LoginForm';
+import SignupForm from './components/SignupForm';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -41,10 +42,10 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <Navbar />
-          <Route exact path="/">
-            <Navbar />
-          </Route>
+        <Route exact path="/">
+          <Navbar />
+        </Route>
+        <div className="container">
           <Route exact path="/loginUser">
             <LoginForm />
           </Route>
@@ -54,12 +55,13 @@ function App() {
           <Route exact path="/saveBook">
             <SavedBooks />
           </Route>
-          <Route exact path="/addUser">
-            <SavedBooks />
+          <Route exact path="/deleteBook">
+            <SearchBooks />
           </Route>
           <Route exact path="/me">
-            <Profile />
+            <SavedBooks />
           </Route>
+        </div>
      </Router>
     </ApolloProvider>
   );

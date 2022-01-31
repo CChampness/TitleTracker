@@ -4,15 +4,15 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    users: async () => {
-      return User.find().populate('savedBooks');
-    },
-    getSingleUser: async (parent, { username }) => {
-      return User.findOne({ username }).populate('savedBooks');
-    },
+    // users: async () => {
+    //   return User.find().populate('savedBooks');
+    // },
+    // getSingleUser: async (parent, { username }) => {
+    //   return User.findOne({ username }).populate('savedBooks');
+    // },
     savedBooks: async (parent, { username }) => {
       const params = username ? { username } : {};
-      return bookSchema.find(params).sort({ createdAt: -1 });
+      return Book.find(params).sort({ createdAt: -1 });
     },
     book: async (parent, { bookId }) => {
       return Book.findOne({ _id: bookId });
@@ -26,7 +26,7 @@ const resolvers = {
   },
 
   Mutation: {
-    createUser: async (parent, { username, email, password }) => {
+    addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
       const token = signToken(user);
       return { token, user };
