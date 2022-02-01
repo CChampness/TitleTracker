@@ -14,14 +14,16 @@ const resolvers = {
 
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
-      console.log("addUser: ", username);
+      console.log("Mutation, addUser: ", username);
       const user = await User.create({ username, email, password });
       const token = signToken(user);
+      console.log("Mutation, token, user: ", token,",",user);
       return { token, user };
     },
     loginUser: async (parent, { email, password }) => {
-      console.log("loginUser: ", email);
+      console.log("Mutation, loginUser email: ", email);
       const user = await User.findOne({ email });
+      console.log("Mutation, loginUser user: ", user);
 
       if (!user) {
         throw new AuthenticationError('No user found with this email address');
@@ -34,10 +36,12 @@ const resolvers = {
       }
 
       const token = signToken(user);
+      console.log("Mutation, signToken: ", token);
 
       return { token, user };
     },
     saveBook: async (parent, { bookId }, context) => {
+      console.log("saveBook");
       if (context.user) {
         const book = await Book.create({
           bookId,

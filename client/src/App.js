@@ -43,14 +43,14 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <Navbar />
-        <div className="container">
+        <Switch>
           <Route exact path="/saved">
             <SavedBooks />
           </Route>
           <Route exact path="/">
             <SearchBooks />
           </Route>
-        </div>
+        </Switch>
      </Router>
     </ApolloProvider>
   );
