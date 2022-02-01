@@ -4,7 +4,6 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 import { Form, Button, Alert } from 'react-bootstrap';
 
-import { loginUser } from '../utils/API';
 import Auth from '../utils/auth';
 
 const LoginForm = () => {
@@ -18,11 +17,6 @@ const LoginForm = () => {
     setUserFormData({ ...userFormData, [name]: value });
   };
 
-  // setUserFormData({
-  //   ...userFormData,
-  //    [username]: value
-  //    });
-
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -34,23 +28,18 @@ const LoginForm = () => {
     }
 
     try {
+      console.log("userFormData: ", userFormData);
       // const response = await loginUser(userFormData);
-      const response = await loginUser(userFormData);
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      const { token, user } = await response.json();
-      console.log(user);
-      Auth.login(token);
+      const {data} = await loginUser({variables: {...userFormData}});
+      
+      console.log("data: ", data);
+      Auth.login(data.token);
     } catch (err) {
       console.error(err);
       setShowAlert(true);
     }
 
     setUserFormData({
-      username: '',
       email: '',
       password: '',
     });

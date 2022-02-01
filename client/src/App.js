@@ -42,24 +42,13 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <Route exact path="/">
-          <Navbar />
-        </Route>
+        <Navbar />
         <div className="container">
-          <Route exact path="/loginUser">
-            <LoginForm />
-          </Route>
-          <Route exact path="/addUser">
-            <SignupForm />
-          </Route>
-          <Route exact path="/saveBook">
+          <Route exact path="/saved">
             <SavedBooks />
           </Route>
-          <Route exact path="/deleteBook">
+          <Route exact path="/">
             <SearchBooks />
-          </Route>
-          <Route exact path="/me">
-            <SavedBooks />
           </Route>
         </div>
      </Router>
