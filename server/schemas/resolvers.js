@@ -6,7 +6,7 @@ const resolvers = {
   Query: {
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('savedBooks');
+        return await User.findOne({ _id: context.user._id }).populate('savedBooks');
       }
       throw new AuthenticationError('You need to be logged in!');
     },
@@ -46,9 +46,11 @@ const resolvers = {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $push: { saveBook: BookData } },
+          { $addToSet: { savedBooks: BookData } },
           {new: true}
         );
+
+        console.log("updatedUser: ", updatedUser);
 
         return updatedUser;
       }
