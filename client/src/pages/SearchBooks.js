@@ -32,6 +32,7 @@ const SearchBooks = () => {
     }
 
     try {
+      console.log("try searchGoogleBooks");
       const response = await searchGoogleBooks(searchInput);
 
       if (!response.ok) {
@@ -39,6 +40,7 @@ const SearchBooks = () => {
       }
 
       const { items } = await response.json();
+      console.log("after await response");
 
       const bookData = items.map((book) => ({
         bookId: book.id,
@@ -48,6 +50,9 @@ const SearchBooks = () => {
         image: book.volumeInfo.imageLinks?.thumbnail || '',
       }));
 
+      console.log("bookData: ", bookData);
+
+      
       setSearchedBooks(bookData);
       setSearchInput('');
     } catch (err) {
@@ -59,6 +64,7 @@ const SearchBooks = () => {
   const handleSaveBook = async (bookId) => {
     // find the book in `searchedBooks` state by the matching id
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
+    console.log("bookToSave: ", bookToSave);
 
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -66,10 +72,13 @@ const SearchBooks = () => {
     if (!token) {
       return false;
     }
+    console.log("ready to try saveBook");
 
     try {
-      const {result} = await saveBook(bookToSave, token);
-      // const response = await useMutation(bookToSave, token);
+      // const {result} = await saveBook(bookToSave, token);
+      const {result} = await saveBook({
+        variables: { BookData: { ...bookToSave } },
+      });
       console.log(result);
       // if book successfully saves to user's account, save book id to state
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
