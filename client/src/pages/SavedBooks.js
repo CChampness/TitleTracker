@@ -10,8 +10,9 @@ import { REMOVE_BOOK } from '../utils/mutations';
 
 const SavedBooks = () => {
   console.log("entering SavedBooks");
-  const {isLoading, data } = useQuery(GET_ME);
+  const {isLoading, error, data } = useQuery(GET_ME);
   // const { data } = useQuery(GET_ME);
+  console.log("error: ",error);
   console.log("isLoading: ",isLoading);
   console.log("data: ",data);
   const userData = data?.me || {};
@@ -38,10 +39,10 @@ const SavedBooks = () => {
     }
   };
 
-  // // if data isn't here yet, say so
-  // if (isLoading) {
-  //   return <h2>LOADING...</h2>;
-  // }
+  // if data isn't here yet, say so
+  if (isLoading) {
+    return <h2>LOADING...</h2>;
+  }
 
   return (
     <>
