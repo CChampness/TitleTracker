@@ -3,21 +3,8 @@ const { User } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
-  // Query: {
-  //   me: async (parent, args, context) => {
-  //     console.log("context: ",context);
-  //     if (context.user) {
-  //       const x =  await User.findOne({ _id: context.user._id }).populate('savedBooks');
-  //       console.log("x",x);
-  //       return x;
-  //     }
-  //     throw new AuthenticationError('You need to be logged in!');
-  //   },
-  // },
-
     Query: {
     me: async (parent, args, context) => {
-      console.log("context: ",context);
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id });
         return userData;
@@ -78,7 +65,7 @@ const resolvers = {
           { _id: context.user._id },
           { $pull: { savedBooks: {bookId} } }
         );
-
+console.log("updatedUser: ",updatedUser);
         return updatedUser;
       }
       throw new AuthenticationError('You need to be logged in!');

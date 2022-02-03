@@ -10,8 +10,8 @@ import { REMOVE_BOOK } from '../utils/mutations';
 
 const SavedBooks = () => {
   console.log("entering SavedBooks");
-  const {isLoading, data } = useQuery(GET_ME);
-  console.log("isLoading: ",isLoading);
+  const {loading, data } = useQuery(GET_ME);
+  console.log("loading: ",loading);
   console.log("data: ",data);
   const userData = data?.me || {};
   const [removeBook, {error}] = useMutation(REMOVE_BOOK);
@@ -38,7 +38,7 @@ const SavedBooks = () => {
   };
 
   // if data isn't here yet, say so
-  if (isLoading) {
+  if (loading) {
     return <h2>LOADING...</h2>;
   }
 
