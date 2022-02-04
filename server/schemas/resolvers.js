@@ -3,7 +3,7 @@ const { User } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
-    Query: {
+  Query: {
     me: async (parent, args, context) => {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id });
@@ -15,16 +15,12 @@ const resolvers = {
 
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
-      console.log("Mutation, addUser: ", username);
       const user = await User.create({ username, email, password });
       const token = signToken(user);
-      console.log("Mutation, token, user: ", token,",",user);
       return { token, user };
     },
     loginUser: async (parent, { email, password }) => {
-      console.log("Mutation, loginUser email: ", email);
       const user = await User.findOne({ email });
-      console.log("Mutation, loginUser user: ", user);
 
       if (!user) {
         throw new AuthenticationError('No user found with this email address');
@@ -37,21 +33,17 @@ const resolvers = {
       }
 
       const token = signToken(user);
-      console.log("Mutation, signToken: ", token);
 
       return { token, user };
     },
 
     saveBook: async (parent, { bookData }, context) => {
-      console.log("saveBook for user: ", context.user);
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { savedBooks: bookData } },
           {new: true}
         );
-
-        console.log("updatedUser: ", updatedUser);
 
         return updatedUser;
       }
@@ -63,9 +55,9 @@ const resolvers = {
 
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { savedBooks: {bookId} } }
+          { $pull: { savedBooks: {bookId} } },
+          { returnNewDocument : true }
         );
-console.log("updatedUser: ",updatedUser);
         return updatedUser;
       }
       throw new AuthenticationError('You need to be logged in!');

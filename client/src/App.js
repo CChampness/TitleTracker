@@ -11,8 +11,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
-import LoginForm from './components/LoginForm';
-import SignupForm from './components/SignupForm';
+// import LoginForm from './components/LoginForm';
+// import SignupForm from './components/SignupForm';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
