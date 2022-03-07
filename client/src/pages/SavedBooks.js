@@ -5,12 +5,15 @@ import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 import { GET_ME } from '../utils/queries';
+import { GET_USERS } from '../utils/queries';
 import { REMOVE_BOOK } from '../utils/mutations';
 
 const SavedBooks = () => {
   const [ refresh, setRefresh ] = useState();
   const {loading, data } = useQuery(GET_ME);
   const userData = data?.me || {};
+  // const {loading, data } = useQuery(GET_USERS);
+  // const userData = data?.users || {};
   const [removeBook, {error}] = useMutation(REMOVE_BOOK);
 
   // function to accept the book's mongo _id value as param and

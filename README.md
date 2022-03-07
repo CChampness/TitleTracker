@@ -4,8 +4,9 @@
 ```
 This app is a handy way to browse books on Google books and save titles for your own personal reference.
 It uses a GraphQL interface to access the Google Books API search engine.  Also employed are the MERN stack
-with a React front end, MongoDB database, and Node.js/Express.js server and API. Users ca save book searches
-to the back end for later reference from any connected device.  This is a full-stack app which is deployed on Heroku.
+with a React front end, MongoDB database, and Node.js/Express.js server and API. Users can save book searches
+to the back end for later reference from any connected device.  This is a full-stack app which
+is deployed on Heroku.
 ```
 
 ## Motivation

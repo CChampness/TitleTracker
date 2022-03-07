@@ -42,6 +42,27 @@ export const SAVE_BOOK = gql`
   }
 `;
 
+export const SAVE_PROFILE = gql`
+  mutation saveProfile($profileData: ProfileInput!) {
+    saveProfile(profileData: $profileData) {
+      _id
+      username
+      email
+      profile {
+        mainInterest
+      }
+      savedBooks {
+        bookId
+        description
+        authors
+        image
+        link
+        title
+      }
+    }
+  }
+`;
+
 export const REMOVE_BOOK = gql`
   mutation removeBook($bookId: ID!) {
     removeBook(bookId: $bookId) {

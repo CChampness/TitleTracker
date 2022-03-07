@@ -5,11 +5,12 @@ const typeDefs = gql`
     _id: ID
     username: String
     email: String
+    profile: Profile!
     savedBooks: [Book]!
   }
 
   type Book {
-    bookId: ID
+    bookId: String
     authors: [String]!
     description: String
     title: String
@@ -24,7 +25,14 @@ const typeDefs = gql`
     title: String
     image: String
     link: String
-  
+  }
+
+  type Profile {
+    mainInterest: String
+  }
+
+  input ProfileInput {
+    mainInterest: String
   }
 
   type Auth {
@@ -33,6 +41,7 @@ const typeDefs = gql`
   }
 
   type Query {
+    users: User
     me: User
   }
 
@@ -40,6 +49,7 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     loginUser(email: String!, password: String!): Auth
     saveBook(bookData: BookInput!): User
+    saveProfile(profileData: ProfileInput!): User
     removeBook(bookId: ID!): User
   }
 `;

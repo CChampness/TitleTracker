@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 
 // import schema from Book.js
 const Book = require('./Book');
+const Profile = require('./Profile');
 
 const userSchema = new Schema(
   {
@@ -23,6 +24,8 @@ const userSchema = new Schema(
       required: true,
       minlength: 5
     },
+    // profile: [Profile],
+    profile: Profile,
     // set savedBooks to be an array of data that adheres to the bookSchema
     savedBooks: [Book]
   },
